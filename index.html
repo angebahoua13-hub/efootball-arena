@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eFootball Arena</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f1117;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #151a25, #202938);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            margin-top: 6px;
+        }
+
+        .credits {
+            margin: 20px;
+            padding: 20px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #176b3a, #0f4228);
+        }
+
+        .credits-title {
+            color: #b8e8c9;
+            font-size: 14px;
+        }
+
+        .credits-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            padding: 0 20px 25px;
+        }
+
+        .card {
+            background: #191d27;
+            border-radius: 18px;
+            padding: 22px 15px;
+            text-align: center;
+            border: 1px solid #282e3b;
+        }
+
+        .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-weight: bold;
+        }
+
+        .card-text {
+            color: #8f98a8;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #151820;
+            border-top: 1px solid #292e38;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 5px;
+        }
+
+        .nav {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .nav-icon {
+            display: block;
+            font-size: 21px;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="logo">⚽ eFootball Arena</div>
+        <div class="subtitle" id="welcome">Bienvenue dans l'arène</div>
+    </div>
+
+    <div class="credits">
+        <div class="credits-title">💰 MES CRÉDITS</div>
+        <div class="credits-value" id="credits">0 crédits</div>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="icon">⚔️</div>
+            <div class="card-title">Défis</div>
+            <div class="card-text">Affronter un joueur</div>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏆</div>
+            <div class="card-title">Classement</div>
+            <div class="card-text">Voir les meilleurs</div>
+        </div>
+
+        <div class="card">
+            <div class="icon">👤</div>
+            <div class="card-title">Profil</div>
+            <div class="card-text">Mes statistiques</div>
+        </div>
+
+        <div class="card">
+            <div class="icon">📜</div>
+            <div class="card-title">Historique</div>
+            <div class="card-text">Mes matchs</div>
+        </div>
+
+    </div>
+
+    <div class="bottom">
+        <div class="nav">
+            <span class="nav-icon">🏠</span>
+            Accueil
+        </div>
+
+        <div class="nav">
+            <span class="nav-icon">⚔️</span>
+            Défis
+        </div>
+
+        <div class="nav">
+            <span class="nav-icon">🏆</span>
+            Classement
+        </div>
+
+        <div class="nav">
+            <span class="nav-icon">👤</span>
+            Profil
+        </div>
+    </div>
+
+<script>
+const tg = window.Telegram.WebApp;
+
+tg.ready();
+tg.expand();
+
+const user = tg.initDataUnsafe?.user;
+
+if (user) {
+    const nom = user.first_name || "Joueur";
+    document.getElementById("welcome").textContent =
+        "Bienvenue " + nom + " 👋";
+}
+</script>
+</body>
+</html>
