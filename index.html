@@ -164,7 +164,7 @@
             Classement
         </div>
 
-        <div class="nav" id="profilBtn">
+        <div class="nav" onclick="window.Telegram.WebApp.showAlert('TEST PROFIL')">
             <span class="nav-icon">👤</span>
             Profil
         </div>
@@ -191,15 +191,7 @@ if (user) {
 
 
 
-<script>
-const profilBtn = document.getElementById("profilBtn");
 
-if (profilBtn) {
-    profilBtn.addEventListener("click", function () {
-        Telegram.WebApp.showAlert("TEST PROFIL");
-    });
-}
-</script>
 
 </body>
 </html>
