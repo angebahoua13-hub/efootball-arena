@@ -184,5 +184,35 @@ if (user) {
         "Bienvenue " + nom + " 👋";
 }
 </script>
+
+<script>
+function ouvrirProfil() {
+    const user = window.Telegram.WebApp.initDataUnsafe?.user;
+
+    if (user) {
+        window.Telegram.WebApp.showAlert(
+            "👤 Profil de " + (user.first_name || "Joueur")
+        );
+    } else {
+        alert("Ouvre la Mini App depuis Telegram.");
+    }
+}
+</script>
+
+
+<script>
+function ouvrirProfil() {
+    const user = window.Telegram.WebApp.initDataUnsafe?.user;
+
+    if (user) {
+        window.Telegram.WebApp.showAlert(
+            "👤 Profil de " + (user.first_name || "Joueur")
+        );
+    } else {
+        alert("Ouvre la Mini App depuis Telegram.");
+    }
+}
+</script>
+
 </body>
 </html>
