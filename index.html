@@ -164,7 +164,7 @@
             Classement
         </div>
 
-        <div class="nav" onclick="ouvrirProfil()">
+        <div class="nav" onclick="envoyerProfil()">
             <span class="nav-icon">👤</span>
             Profil
         </div>
@@ -204,3 +204,10 @@ function ouvrirProfil() {
 
 </body>
 </html>
+
+<script>
+function envoyerProfil() {
+    const tg = window.Telegram.WebApp;
+    tg.sendData("profil");
+}
+</script>
