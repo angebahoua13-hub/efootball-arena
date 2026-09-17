@@ -164,7 +164,7 @@
             Classement
         </div>
 
-        <div class="nav">
+        <div class="nav" onclick="ouvrirProfil()">
             <span class="nav-icon">👤</span>
             Profil
         </div>
@@ -185,19 +185,7 @@ if (user) {
 }
 </script>
 
-<script>
-function ouvrirProfil() {
-    const user = window.Telegram.WebApp.initDataUnsafe?.user;
 
-    if (user) {
-        window.Telegram.WebApp.showAlert(
-            "👤 Profil de " + (user.first_name || "Joueur")
-        );
-    } else {
-        alert("Ouvre la Mini App depuis Telegram.");
-    }
-}
-</script>
 
 
 <script>
