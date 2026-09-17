@@ -164,7 +164,7 @@
             Classement
         </div>
 
-        <div class="nav" onclick="envoyerProfil()">
+        <div class="nav" id="profilBtn">
             <span class="nav-icon">👤</span>
             Profil
         </div>
@@ -188,26 +188,20 @@ if (user) {
 
 
 
-<script>
-function ouvrirProfil() {
-    const user = window.Telegram.WebApp.initDataUnsafe?.user;
 
-    if (user) {
-        window.Telegram.WebApp.showAlert(
-            "👤 Profil de " + (user.first_name || "Joueur")
-        );
-    } else {
-        alert("Ouvre la Mini App depuis Telegram.");
-    }
+
+
+<script>
+const profilBtn = document.getElementById("profilBtn");
+
+if (profilBtn) {
+    profilBtn.addEventListener("click", function () {
+        Telegram.WebApp.showAlert("TEST PROFIL");
+    });
 }
 </script>
 
 </body>
 </html>
 
-<script>
-function envoyerProfil() {
-    const tg = window.Telegram.WebApp;
-    tg.showAlert("TEST PROFIL");
-}
-</script>
+
