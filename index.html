@@ -1,199 +1,354 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eFootball Arena</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #0f1117;
-            color: white;
-            min-height: 100vh;
-        }
-
-        .header {
-            padding: 25px 20px;
-            background: linear-gradient(135deg, #151a25, #202938);
-        }
-
-        .logo {
-            font-size: 26px;
-            font-weight: bold;
-        }
-
-        .subtitle {
-            color: #9ca3af;
-            margin-top: 6px;
-        }
-
-        .credits {
-            margin: 20px;
-            padding: 20px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #176b3a, #0f4228);
-        }
-
-        .credits-title {
-            color: #b8e8c9;
-            font-size: 14px;
-        }
-
-        .credits-value {
-            font-size: 32px;
-            font-weight: bold;
-            margin-top: 8px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-            padding: 0 20px 25px;
-        }
-
-        .card {
-            background: #191d27;
-            border-radius: 18px;
-            padding: 22px 15px;
-            text-align: center;
-            border: 1px solid #282e3b;
-        }
-
-        .icon {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .card-title {
-            font-weight: bold;
-        }
-
-        .card-text {
-            color: #8f98a8;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        .bottom {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #151820;
-            border-top: 1px solid #292e38;
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 5px;
-        }
-
-        .nav {
-            text-align: center;
-            color: #9ca3af;
-            font-size: 12px;
-        }
-
-        .nav-icon {
-            display: block;
-            font-size: 21px;
-            margin-bottom: 3px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eFootball Arena</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#0b1020;
+ color:white;
+ padding:20px;
+}
+.container{max-width:500px;margin:auto}
+.header{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold}
+.badge{background:#26345c;padding:8px 12px;border-radius:20px}
+.welcome{color:#aab4d6;margin-top:25px}
+h1{font-size:28px;margin:8px 0 20px}
+.balance{
+ background:linear-gradient(135deg,#465cff,#773cff);
+ padding:22px;
+ border-radius:22px;
+ box-shadow:0 10px 25px #0005;
+}
+.balance small{color:#e1e5ff}
+.balance h2{font-size:32px;margin:12px 0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.action{
+ background:#171f38;
+ border:1px solid #2b3657;
+ padding:20px 10px;
+ border-radius:18px;
+ text-align:center;
+ font-size:16px;
+ cursor:pointer;
+}
+.action:active{transform:scale(.97)}
+.section-title{margin:25px 0 12px}
+.card{
+ background:#171f38;
+ padding:18px;
+ border-radius:18px;
+ margin-bottom:12px;
+}
+.card strong{font-size:18px}
+.card p{color:#aab4d6;margin-bottom:0}
+.nav{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:8px;
+ background:#171f38;
+ padding:12px 5px;
+ border-radius:20px;
+ margin-top:25px;
+}
+.nav button{
+ background:none;
+ border:0;
+ color:#aab4d6;
+ padding:10px 2px;
+ cursor:pointer;
+}
+.nav button.active{color:white;font-weight:bold}
+.page{display:none}
+.page.active{display:block}
+button{font:inherit}
+</style>
 </head>
-
 <body>
+<div class="container">
 
-    <div class="header">
-        <div class="logo">⚽ eFootball Arena</div>
-        <div class="subtitle" id="welcome">Bienvenue dans l'arène</div>
-    </div>
+<div class="header">
+<div class="logo">⚽ eFootball Arena</div>
+<div class="badge">🎮</div>
+</div>
 
-    <div class="credits">
-        <div class="credits-title">💰 MES CRÉDITS</div>
-        <div class="credits-value" id="credits">0 crédits</div>
-    </div>
+<div class="page active" id="home">
+<div class="welcome" id="welcome">Bienvenue, joueur 👋</div>
+<h1>Prêt à jouer ?</h1>
 
-    <div class="grid">
+<div class="balance">
+<small>💰 MES CRÉDITS VIRTUELS</small>
+<h2 id="credits">0 crédits</h2>
+<small>Utilise tes crédits pour les défis virtuels.</small>
+</div>
 
-        <div class="card">
-            <div class="icon">⚔️</div>
-            <div class="card-title">Défis</div>
-            <div class="card-text">Affronter un joueur</div>
-        </div>
+<div class="actions">
+<div class="action" onclick="showPage('defis')">⚔️<br><b>Défis</b></div>
+<div class="action" onclick="showPage('classement')">🏆<br><b>Classement</b></div>
+<div class="action" onclick="showPage('profil')">👤<br><b>Mon profil</b></div>
+<div class="action" onclick="showPage('historique')">📜<br><b>Historique</b></div>
+</div>
 
-        <div class="card">
-            <div class="icon">🏆</div>
-            <div class="card-title">Classement</div>
-            <div class="card-text">Voir les meilleurs</div>
-        </div>
+<div class="section-title"><h2>🔥 eFootball Arena</h2></div>
+<div class="card">
+<strong>Affronte tes adversaires</strong>
+<p>Crée des défis et progresse dans le classement.</p>
+</div>
+</div>
 
-        <div class="card">
-            <div class="icon">👤</div>
-            <div class="card-title">Profil</div>
-            <div class="card-text">Mes statistiques</div>
-        </div>
+<div class="page" id="defis">
+<h1>⚔️ Défis</h1>
+<div class="card">
+<strong>Créer un défi</strong>
+<p>La création des défis sera connectée au bot Telegram.</p>
+</div>
+<div class="card">
+<strong>Mes défis</strong>
+<p>Retrouve ici tes défis virtuels.</p>
+</div>
+</div>
 
-        <div class="card">
-            <div class="icon">📜</div>
-            <div class="card-title">Historique</div>
-            <div class="card-text">Mes matchs</div>
-        </div>
+<div class="page" id="classement">
+<h1>🏆 Classement</h1>
+<div class="card">
+<strong>Classement général</strong>
+<p>Les meilleurs joueurs apparaîtront ici.</p>
+</div>
+</div>
 
-    </div>
+<div class="page" id="profil">
+<h1>👤 Mon profil</h1>
+<div class="card">
+<strong id="profileName">Joueur</strong>
+<p id="profileUsername">@non défini</p>
+<p>🪙 Points : bientôt connecté</p>
+<p>💰 Crédits : bientôt connecté</p>
+<p>🏆 Victoires : bientôt connecté</p>
+<p>❌ Défaites : bientôt connecté</p>
+</div>
+</div>
 
-    <div class="bottom">
-        <div class="nav">
-            <span class="nav-icon">🏠</span>
-            Accueil
-        </div>
+<div class="page" id="historique">
+<h1>📜 Historique</h1>
+<div class="card">
+<strong>Mes matchs</strong>
+<p>Ton historique apparaîtra ici.</p>
+</div>
+</div>
 
-        <div class="nav">
-            <span class="nav-icon">⚔️</span>
-            Défis
-        </div>
+<div class="nav">
+<button class="active" onclick="showPage('home',this)">🏠<br>Accueil</button>
+<button onclick="showPage('defis',this)">⚔️<br>Défis</button>
+<button onclick="showPage('classement',this)">🏆<br>Classement</button>
+<button onclick="showPage('profil',this)">👤<br>Profil</button>
+</div>
 
-        <div class="nav">
-            <span class="nav-icon">🏆</span>
-            Classement
-        </div>
-
-        <div class="nav" onclick="window.Telegram.WebApp.showAlert('TEST PROFIL')">
-            <span class="nav-icon">👤</span>
-            Profil
-        </div>
-    </div>
+</div>
 
 <script>
-const tg = window.Telegram.WebApp;
-
+const tg=window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-const user = tg.initDataUnsafe?.user;
+const user=tg.initDataUnsafe?.user;
 
-if (user) {
-    const nom = user.first_name || "Joueur";
-    document.getElementById("welcome").textContent =
-        "Bienvenue " + nom + " 👋";
+if(user){
+ document.getElementById("welcome").textContent=
+ "Bienvenue, "+(user.first_name||"Joueur")+" 👋";
+ document.getElementById("profileName").textContent=
+ user.first_name||"Joueur";
+ document.getElementById("profileUsername").textContent=
+ user.username?"@"+user.username:"@non défini";
+}
+
+function showPage(page,button){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(page).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
+}cd ~/efootball_bot/webapp
+cat > index.html <<'EOF'
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eFootball Arena</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#0b1020;
+ color:white;
+ padding:20px;
+}
+.container{max-width:500px;margin:auto}
+.header{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold}
+.badge{background:#26345c;padding:8px 12px;border-radius:20px}
+.welcome{color:#aab4d6;margin-top:25px}
+h1{font-size:28px;margin:8px 0 20px}
+.balance{
+ background:linear-gradient(135deg,#465cff,#773cff);
+ padding:22px;
+ border-radius:22px;
+ box-shadow:0 10px 25px #0005;
+}
+.balance small{color:#e1e5ff}
+.balance h2{font-size:32px;margin:12px 0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.action{
+ background:#171f38;
+ border:1px solid #2b3657;
+ padding:20px 10px;
+ border-radius:18px;
+ text-align:center;
+ font-size:16px;
+ cursor:pointer;
+}
+.action:active{transform:scale(.97)}
+.section-title{margin:25px 0 12px}
+.card{
+ background:#171f38;
+ padding:18px;
+ border-radius:18px;
+ margin-bottom:12px;
+}
+.card strong{font-size:18px}
+.card p{color:#aab4d6;margin-bottom:0}
+.nav{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:8px;
+ background:#171f38;
+ padding:12px 5px;
+ border-radius:20px;
+ margin-top:25px;
+}
+.nav button{
+ background:none;
+ border:0;
+ color:#aab4d6;
+ padding:10px 2px;
+ cursor:pointer;
+}
+.nav button.active{color:white;font-weight:bold}
+.page{display:none}
+.page.active{display:block}
+button{font:inherit}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<div class="logo">⚽ eFootball Arena</div>
+<div class="badge">🎮</div>
+</div>
+
+<div class="page active" id="home">
+<div class="welcome" id="welcome">Bienvenue, joueur 👋</div>
+<h1>Prêt à jouer ?</h1>
+
+<div class="balance">
+<small>💰 MES CRÉDITS VIRTUELS</small>
+<h2 id="credits">0 crédits</h2>
+<small>Utilise tes crédits pour les défis virtuels.</small>
+</div>
+
+<div class="actions">
+<div class="action" onclick="showPage('defis')">⚔️<br><b>Défis</b></div>
+<div class="action" onclick="showPage('classement')">🏆<br><b>Classement</b></div>
+<div class="action" onclick="showPage('profil')">👤<br><b>Mon profil</b></div>
+<div class="action" onclick="showPage('historique')">📜<br><b>Historique</b></div>
+</div>
+
+<div class="section-title"><h2>🔥 eFootball Arena</h2></div>
+<div class="card">
+<strong>Affronte tes adversaires</strong>
+<p>Crée des défis et progresse dans le classement.</p>
+</div>
+</div>
+
+<div class="page" id="defis">
+<h1>⚔️ Défis</h1>
+<div class="card">
+<strong>Créer un défi</strong>
+<p>La création des défis sera connectée au bot Telegram.</p>
+</div>
+<div class="card">
+<strong>Mes défis</strong>
+<p>Retrouve ici tes défis virtuels.</p>
+</div>
+</div>
+
+<div class="page" id="classement">
+<h1>🏆 Classement</h1>
+<div class="card">
+<strong>Classement général</strong>
+<p>Les meilleurs joueurs apparaîtront ici.</p>
+</div>
+</div>
+
+<div class="page" id="profil">
+<h1>👤 Mon profil</h1>
+<div class="card">
+<strong id="profileName">Joueur</strong>
+<p id="profileUsername">@non défini</p>
+<p>🪙 Points : bientôt connecté</p>
+<p>💰 Crédits : bientôt connecté</p>
+<p>🏆 Victoires : bientôt connecté</p>
+<p>❌ Défaites : bientôt connecté</p>
+</div>
+</div>
+
+<div class="page" id="historique">
+<h1>📜 Historique</h1>
+<div class="card">
+<strong>Mes matchs</strong>
+<p>Ton historique apparaîtra ici.</p>
+</div>
+</div>
+
+<div class="nav">
+<button class="active" onclick="showPage('home',this)">🏠<br>Accueil</button>
+<button onclick="showPage('defis',this)">⚔️<br>Défis</button>
+<button onclick="showPage('classement',this)">🏆<br>Classement</button>
+<button onclick="showPage('profil',this)">👤<br>Profil</button>
+</div>
+
+</div>
+
+<script>
+const tg=window.Telegram.WebApp;
+tg.ready();
+tg.expand();
+
+const user=tg.initDataUnsafe?.user;
+
+if(user){
+ document.getElementById("welcome").textContent=
+ "Bienvenue, "+(user.first_name||"Joueur")+" 👋";
+ document.getElementById("profileName").textContent=
+ user.first_name||"Joueur";
+ document.getElementById("profileUsername").textContent=
+ user.username?"@"+user.username:"@non défini";
+}
+
+function showPage(page,button){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(page).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
 }
 </script>
-
-
-
-
-
-
-
-
-
 </body>
 </html>
-
-
