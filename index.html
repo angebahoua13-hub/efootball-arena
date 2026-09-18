@@ -380,10 +380,17 @@ if(user){
     user.username ? "@" + user.username : "@non défini";
 }
 
-function demanderProfil(){
-  if(window.Telegram?.WebApp){
-    window.Telegram.WebApp.sendData("profil");
-  }
+async function demanderProfil(){
+  const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
+  if(!user) return;
+
+  const r = await fetch("https://allocated-kyle-authority-thumbnails.trycloudflare.com/api/profil/" + user.id);
+  const p = await r.json();
+
+  document.getElementById("profileCredits").textContent = p.credits;
+  document.getElementById("profilePoints").textContent = p.points;
+  document.getElementById("profileWins").textContent = p.victoires;
+  document.getElementById("profileLosses").textContent = p.defaites;
 }\n\nfunction showPage(page,button){
 
   document.querySelectorAll(".page")
